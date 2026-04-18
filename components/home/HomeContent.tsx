@@ -10,19 +10,46 @@ import {
   FOUNDER_NAME,
 } from "@/lib/founder";
 import {
+  FOUNDER_HERO_IMAGE,
   FOUNDER_LEADERSHIP_ALT,
   FOUNDER_LEADERSHIP_IMAGE,
 } from "@/lib/founder-photos";
 
 const Hero = styled.section`
+  position: relative;
+  isolation: isolate;
+  min-height: clamp(22rem, 72vh, 40rem);
+  display: flex;
+  align-items: center;
   padding: clamp(2.5rem, 6vw, 4.5rem) 0;
-  background: linear-gradient(
-    165deg,
-    ${(p) => p.theme.colors.surface} 0%,
-    ${(p) => p.theme.colors.bg} 45%,
-    #e8f0ec 100%
-  );
   border-bottom: 1px solid rgba(27, 67, 50, 0.08);
+  overflow: hidden;
+`;
+
+const HeroImageWrap = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+`;
+
+const HeroOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    rgba(27, 67, 50, 0.94) 0%,
+    rgba(27, 67, 50, 0.78) 38%,
+    rgba(27, 67, 50, 0.45) 62%,
+    rgba(27, 67, 50, 0.22) 100%
+  );
+`;
+
+const HeroContent = styled.div`
+  position: relative;
+  z-index: 2;
+  width: 100%;
 `;
 
 const Wrap = styled.div`
@@ -32,24 +59,27 @@ const Wrap = styled.div`
   padding-inline: clamp(1rem, 4vw, 2rem);
 `;
 
-const HeroGrid = styled.div`
-  display: grid;
-  gap: 2rem;
-  align-items: center;
-  @media (min-width: 768px) {
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-  }
+const HeroText = styled.div`
+  max-width: 38rem;
 `;
 
-const H1 = styled.h1`
+const HeroH1 = styled.h1`
   font-family: ${(p) => p.theme.fonts.serif};
   font-weight: 700;
   line-height: 1.2;
-  color: ${(p) => p.theme.colors.primary};
+  color: ${(p) => p.theme.colors.white};
   font-size: clamp(2rem, 5vw, 2.75rem);
   letter-spacing: -0.02em;
   margin: 0 0 1rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+`;
+
+const HeroLead = styled.p`
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 38rem;
+  margin: 0 0 1.25rem;
+  line-height: 1.55;
 `;
 
 const Lead = styled.p`
@@ -63,14 +93,6 @@ const BtnRow = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-`;
-
-const HeroVisual = styled.div`
-  border-radius: ${(p) => p.theme.radius};
-  overflow: hidden;
-  box-shadow: ${(p) => p.theme.shadow};
-  aspect-ratio: 4 / 3;
-  position: relative;
 `;
 
 const Section = styled.section<{ $surface?: boolean }>`
@@ -238,16 +260,27 @@ const FounderP = styled.p`
 export default function HomeContent() {
   return (
     <>
-      <Hero>
-        <Wrap>
-          <HeroGrid>
-            <div>
-              <H1>Homes, land, and rentals you can trust</H1>
-              <Lead>
+      <Hero aria-label="Giwa Investment — homes, land, and rentals in Ghana">
+        <HeroImageWrap aria-hidden="true">
+          <Image
+            src={FOUNDER_HERO_IMAGE}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            style={{ objectFit: "cover", objectPosition: "center 28%" }}
+          />
+        </HeroImageWrap>
+        <HeroOverlay aria-hidden="true" />
+        <HeroContent>
+          <Wrap>
+            <HeroText>
+              <HeroH1>Homes, land, and rentals you can trust</HeroH1>
+              <HeroLead>
                 Led by Sarki Abass Giwa, Giwa Investment helps Ghanaians buy,
                 sell, and lease property — from houses and apartments to land —
                 with straightforward guidance and responsive support.
-              </Lead>
+              </HeroLead>
               <BtnRow>
                 <Button
                   text="WhatsApp us"
@@ -258,20 +291,9 @@ export default function HomeContent() {
                 <Button text="Contact" href="/contact" variant="primary" />
                 <Button text="View gallery" href="/gallery" variant="outline" />
               </BtnRow>
-            </div>
-            <HeroVisual>
-              <Image
-                src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=900&q=80"
-                alt="Modern residential home with lawn and blue sky"
-                width={900}
-                height={675}
-                priority
-                sizes="(max-width: 768px) 100vw, 50vw"
-                style={{ objectFit: "cover", width: "100%", height: "100%" }}
-              />
-            </HeroVisual>
-          </HeroGrid>
-        </Wrap>
+            </HeroText>
+          </Wrap>
+        </HeroContent>
       </Hero>
       <Section $surface>
         <Wrap>

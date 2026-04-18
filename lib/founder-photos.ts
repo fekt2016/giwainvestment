@@ -7,6 +7,12 @@ export const FOUNDER_LEADERSHIP_IMAGE = "/founder/portrait-kaftan.png";
 export const FOUNDER_LEADERSHIP_ALT =
   "Sarki Abass Giwa, founder of Giwa Investment, wearing a grey traditional tunic.";
 
+/** Wide hero background — traditional leadership and ceremony. */
+export const FOUNDER_HERO_IMAGE = "/founder/ceremony-traditional-attire.png";
+
+export const FOUNDER_HERO_ALT =
+  "Sarki Abass Giwa in traditional green and white ceremonial regalia with community leaders at a festival gathering.";
+
 export type FounderPhoto = {
   src: string;
   alt: string;
